@@ -1,0 +1,27 @@
+{
+  "name": "burger",
+  "version": "1.0.0",
+  "description": "UW Coding Bootcamp Homework",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlaceda/burger.git"
+  },
+  "author": "John Michael Laceda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlaceda/burger/issues"
+  },
+  "homepage": "https://github.com/jlaceda/burger#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.0",
+    "express-handlebars": "^3.1.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1"
+  }
+}
