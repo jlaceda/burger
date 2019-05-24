@@ -26,4 +26,6 @@ router.put('/:id', async (req, res) => {
 	res.status(201).end();
 });
 
+router.get('*', (req, res) => res.redirect('/'));
+
 module.exports = router;
