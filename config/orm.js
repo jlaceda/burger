@@ -1,33 +1,30 @@
-const connection = require('./connection.js');
+const connection = require('./connection');
 
-function selectAll () {
-	connection.query(
-		'SELECT * FROM burgers', 
-		(err, result) => {
-			// TODO: how to return array of burgers to the caller?
-			// async await?
-			// promise?
+function doQueryAsync (sql, inputs) {
+	return new Promise((resolve, reject) => {
+		connection.query(sql, inputs, (err, result) => {
+			if (err) reject(err, result);
+			resolve(result);
 		});
+	});
 }
 
-function insertOne (burgerName) {
-	connection.query(
-		'INSERT INTO burgers (burger_name) VALUES (?)',
-		[burgerName],
-		(err, result) => {
-			// TODO: how to return resulting id to the caller?
-			// async await?
-			// promise?
-		});
-}
+const orm = {
+	selectAll: (table) => {
+		return doQueryAsync(
+			'SELECT * FROM ??', 
+			[table]);
+	},
+	insertOne: (table, column, value) => {
+		return doQueryAsync(
+			'INSERT INTO ?? (??) VALUES (?)',
+			[table, column, value]);
+	},
+	updateOne: (table, id, column, value) => {
+		return doQueryAsync(
+			'UPDATE ?? SET ??=? WHERE id=? LIMIT 1',
+			[table, column, value, id]);
+	}
+};
 
-// TODO: implement updateOne
-function updateOne (burgerId) {
-	
-}
-
-module.exports = {
-	selectAll: selectAll,
-	insertOne: insertOne,
-	updateOne: updateOne,
-}
+module.exports = orm;
