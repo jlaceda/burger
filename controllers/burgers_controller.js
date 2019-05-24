@@ -15,9 +15,7 @@ router.post('/', async (req, res) => {
 	if (result.warningCount > 0 || result.affectedRows !== 1) {
 		res.status(500).end();
 	}
-	res.status(201).send({
-		insertId: result.insertId
-	});
+	res.redirect('/');
 })
 
 router.put('/:id', async (req, res) => {
