@@ -1,1 +1,41 @@
-{{! TODO: this whole file }}
+<h1>Eat Some Burgers</h1>
+
+<h2>Available Burgers</h2>
+<ul>
+	{{#each burgers}}
+	{{#unless devoured}}
+	<li>{{ burger_name }} <button data-id="{{ id }}" class="eatBurgerButton">Eat</button></li>
+	{{/unless}}
+	{{/each}}
+</ul>
+
+<h2>Devoured Burgers</h2>
+<ul>
+	{{#each burgers}}
+	{{#if devoured}}
+	<li>{{ burger_name }}</li>
+	{{/if}}
+	{{/each}}
+</ul>
+
+<hr />
+
+<h3>Add a Burger</h3>
+<form id="addBurgerForm" action="/" method="POST">
+	<label for="burgerNameInput">Burger Name:</label>
+	<input type="text" name="burgerName" id="burgerNameInput" />
+	<input type="submit" value="Add" />
+</form>
+<script>
+	const eatButtons = document.querySelectorAll('.eatBurgerButton');
+	for (let i = 0, len = eatButtons.length; i < len; i++) {
+		eatButtons[i].addEventListener('click', (event) => {
+			const id = event.target.attributes['data-id'].value;
+			fetch(`/${id}`, {
+				method: 'PUT'
+			}).then((res) => {
+				location.reload();
+			}).catch((err) => console.log(err));
+		});
+	}
+</script>
