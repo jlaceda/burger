@@ -6,7 +6,8 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-	res.send(await burger.getAll());
+	const burgers = await burger.getAll();
+	res.render('index', { burgers });
 });
 
 router.post('/', async (req, res) => {
